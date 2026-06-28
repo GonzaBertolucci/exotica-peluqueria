@@ -17,17 +17,25 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
 
-    const result = await signIn('credentials', {
-      email,
-      password,
-      redirect: false,
-    })
+    try {
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      })
 
-    if (result?.error) {
-      setError('Email o contraseña incorrectos')
+      if (result?.error) {
+        setError('Email o contraseña incorrectos')
+        setLoading(false)
+      } else if (!result) {
+        setError('Error de conexión. Verificá las variables de entorno en Vercel.')
+        setLoading(false)
+      } else {
+        router.push('/')
+      }
+    } catch (err) {
+      setError('Error inesperado: ' + (err instanceof Error ? err.message : 'desconocido'))
       setLoading(false)
-    } else {
-      router.push('/')
     }
   }
 

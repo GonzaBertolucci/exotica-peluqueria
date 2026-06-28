@@ -11,27 +11,51 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: 'Contraseña', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null
+        if (!credentials?.email || !credentials?.password) {
+          console.log('[Auth] Missing credentials')
+          return null
+        }
 
-        const { data: barber } = await supabase
-          .from('barbers')
-          .select('*')
-          .eq('email', credentials.email as string)
-          .single()
+        try {
+          const { data: barber, error: barberError } = await supabase
+            .from('barbers')
+            .select('*')
+            .eq('email', credentials.email as string)
+            .single()
 
-        if (!barber || !barber.is_active) return null
+          if (barberError) {
+            console.log('[Auth] Supabase error looking up barber:', barberError.message)
+            return null
+          }
 
-        const { data, error } = await supabase.rpc('verify_barber_password', {
-          barber_id: barber.id,
-          password: credentials.password as string,
-        })
+          if (!barber || !barber.is_active) {
+            console.log('[Auth] Barber not found or inactive:', credentials.email)
+            return null
+          }
 
-        if (error || !data) return null
+          const { data, error: rpcError } = await supabase.rpc('verify_barber_password', {
+            barber_id: barber.id,
+            password: credentials.password as string,
+          })
 
-        return {
-          id: barber.id.toString(),
-          name: barber.name,
-          email: barber.email,
+          if (rpcError) {
+            console.log('[Auth] RPC error:', rpcError.message)
+            return null
+          }
+
+          if (!data) {
+            console.log('[Auth] Wrong password for:', credentials.email)
+            return null
+          }
+
+          return {
+            id: barber.id.toString(),
+            name: barber.name,
+            email: barber.email,
+          }
+        } catch (err) {
+          console.log('[Auth] Exception in authorize:', err instanceof Error ? err.message : err)
+          return null
         }
       },
     }),
