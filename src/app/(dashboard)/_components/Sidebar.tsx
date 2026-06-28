@@ -27,7 +27,7 @@ export default function Sidebar() {
     <aside className="w-64 bg-zinc-900 text-white flex flex-col min-h-screen">
       <div className="p-6 border-b border-zinc-700">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-xl">E</div>
+          <img src="/logo.jpg" alt="Exótica" style={{ width: 48, height: 48 }} className="rounded-lg" />
           <div>
             <h2 className="font-bold text-white text-lg leading-tight">Exótica</h2>
             <p className="text-xs text-zinc-400 leading-tight">Gestión de Turnos</p>

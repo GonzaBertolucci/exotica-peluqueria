@@ -43,9 +43,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-zinc-900">
       <div className="w-full max-w-sm mx-4">
         <div className="text-center mb-8">
-          <div className="w-36 h-36 mx-auto mb-4 rounded-full bg-red-600 flex items-center justify-center">
-            <span className="text-white text-4xl font-bold">E</span>
-          </div>
+          <img src="/logo.jpg" alt="Exótica" style={{ width: 150, height: 150 }} className="mx-auto mb-4" />
           <p className="text-zinc-400 text-sm">Iniciar sesión</p>
         </div>
 
