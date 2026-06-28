@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
-import Image from 'next/image'
 import {
   Calendar,
   LayoutDashboard,
@@ -28,7 +27,7 @@ export default function Sidebar() {
     <aside className="w-64 bg-zinc-900 text-white flex flex-col min-h-screen">
       <div className="p-6 border-b border-zinc-700">
         <div className="flex items-center gap-3">
-          <Image src="/logo.png" alt="Exótica" width={48} height={48} className="rounded-lg" />
+          <img src="/logo.png" alt="Exótica" style={{ width: 48, height: 48 }} className="rounded-lg" />
           <div>
             <h2 className="font-bold text-white text-lg leading-tight">Exótica</h2>
             <p className="text-xs text-zinc-400 leading-tight">Gestión de Turnos</p>

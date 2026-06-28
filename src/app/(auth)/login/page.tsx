@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
+// eslint-disable-next-line @next/next/no-img-element
 
 export default function LoginPage() {
   const router = useRouter()
@@ -43,7 +43,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-zinc-900">
       <div className="w-full max-w-sm mx-4">
         <div className="text-center mb-8">
-          <Image src="/logo.png" alt="Exótica" width={120} height={120} className="mx-auto mb-4" priority />
+          <img src="/logo.png" alt="Exótica" style={{ width: 120, height: 120 }} className="mx-auto mb-4" />
           <p className="text-zinc-400 text-sm">Iniciar sesión</p>
         </div>
 
